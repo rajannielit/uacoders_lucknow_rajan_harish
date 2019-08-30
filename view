@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<title>हिन्दी भारत</title>
+<!--
+
+Template 2080 Minimax
+
+http://www.tooplate.com/view/2080-minimax
+
+-->
+	<!-- stylesheet css -->
+	<link rel="icon" href="https://s.ndtvimg.com/images/entities/300/india-6.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/nivo-lightbox.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/nivo_themes/default/default.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+	<!-- google web font css -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
+	
+	<style>
+      .speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+      .speech input {border: 0; width: 240px; display: inline-block; height: 30px;}
+      .speech img {float: right; width: 40px }
+    </style>
+
+
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse">
+	
+<!-- navigation -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+			<a href="" class="navbar-brand smoothScroll">हिन्दी भारत</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="" class="smoothScroll">हिन्दी</a></li>
+				<li><a href="" class="smoothScroll">भारत</a></li>
+				<li><a href="" class="smoothScroll">सम्पर्क</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<br><br><br><br><br><hr>
+<div class="container">
+    <?php echo $this->session->flashdata("msg")!=""?$this->session->flashdata("msg"):""; ?>
+  <h2>पंजीकरण</h2>
+  <form id="f" class="form-horizontal" action="<?php echo base_url(); ?>Web/signup" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">नाम</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="" name="name" x-webkit-speech>
+        <div class="response"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">ईमेल</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="email" placeholder="" name="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">पासवर्ड</label>
+      <div class="col-sm-10">          
+        <input type="password" class="form-control" placeholder="" name="pwd">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">आधार</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="" name="adhar" maxlength="12">
+      </div>
+    </div>
+    
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">पंजीकरण करें</button>
+      </div>
+    </div>
+  </form>
+<hr>
+<h2>पंजीकरणकर्ता</h2>
+    <table class="table table-hover">
+        <tr><th>नाम</td><th>ईमेल</th></th><th>आधार</th></th></tr>
+        <?php 
+        foreach($data as $d)
+        { ?>
+            <tr><td><?php echo $d["name"]; ?></td><td><?php echo $d["email"]; ?></td><td><?php echo $d["adhar"]; ?></td></tr>
+        <?php } ?>
+    </table>
+</div><hr>
+
+<!-- javascript js -->	
+<script src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>	
+<script src="<?php echo base_url(); ?>assets/js/nivo-lightbox.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/smoothscroll.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/jquery.nav.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/isotope.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/imagesloaded.min.js"></script>
+<script>
+$('#f').on('submit', function () {
+    email=$("#email").val();
+    atIndex=email.indexOf("@");
+    len=email.length;
+    if(atIndex==0 || atIndex==-1 || atIndex==len-1)
+    {
+        alert("कृपया सही ईमेल डालें");
+        return false;
+    }
+    
+});
+
+$(document).ready(function() {
+
+  $("#txtSearch").bind(
+      "webkitspeechchange", 
+      function(evt) {
+  
+      $(".response")
+        .html(
+          "<h2>You said</h2>" + $(this).val())
+        .fadeIn();    
+  });  
+});
+</script>
+
+</body>
+</html>
