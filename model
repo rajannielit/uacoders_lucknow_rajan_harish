@@ -1,0 +1,16 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Web_model extends CI_Model {
+
+	public function insert($data)
+	{
+	    $this->db->insert("data", $data);
+	}
+	
+	public function get_records()
+	{
+	    $q=$this->db->get("data");
+	    return $q->result_array();
+	}
+}
