@@ -1,0 +1,76 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Web extends CI_Controller {
+
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 */
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model("Web_model");
+	}
+	
+	public function signup()
+	{
+	    $data["name"]=$_POST["name"];
+	    $data["email"]=$_POST["email"];
+	    $data["pwd"]=$_POST["pwd"];
+	    $this->Web_model->insert($data);
+	    $subject="Registered Successfully.";
+		$msg="You have registered successfully";
+		$this->load->library('email');
+		$this->email->from('rajan.nielit@gmail.com', "Rajan Verma");
+		$this->email->to($_POST["email"]);
+		$this->email->subject($subject);
+		$this->email->message($msg);
+		$this->email->set_mailtype("html");
+		$this->email->send();
+		$this->session->set_flashdata("msg","<div class='alert alert-success'>आपका पंजीकरण सम्पूर्ण हो चुका है</div>");
+	    return redirect("web/index");
+	}
+
+	public function index()
+	{
+	    $data["data"]=$this->Web_model->get_records();
+		$this->load->view("index",$data);
+	}
+
+	public function contact()
+	{
+	   // $data["name"]=$this->input->post("name");
+	   // $data["mobile"]=$this->input->post("mobile");
+	   // $data["subject"]=$this->input->post("subject");
+	   // $data["msg"]=$this->input->post("msg");
+	   // $data["created"]=date("Y-m-d H:i:s");
+	   // $this->Web_model->insert_contact($data);
+	   
+	    $subject="Easy Softwares: ".$this->input->post("subject");
+		$msg=$this->input->post("name")."<br>".$this->input->post("mobile")."<br>".$this->input->post("msg");
+		$this->load->library('email');
+		$this->email->from('info@easysoftwares.esy.es', 'Easy Softwares');
+		$this->email->to('rajan.nielit@gmail.com');
+		$this->email->subject($subject);
+		$this->email->message($msg);
+		$this->email->set_mailtype("html");
+		$this->email->send();
+	    
+		$this->session->set_flashdata("msg", "<div class='alert alert-success'>We will contact shortly.</div>");
+		return redirect("web/index/#contact");
+	}
+	
+}
